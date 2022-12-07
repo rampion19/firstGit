@@ -1,16 +1,33 @@
-var form = document.getElementById("my-form");
+var form = document.getElementById("addForm");
 
-form.addEventListener('submit', addLocalStorage);
+form.addEventListener('submit', saveLocal);
 
-function addLocalStorage(e){
+function saveLocal(e){
     e.preventDefault();
+   
+   const name = e.target.username.value;
+   const email = e.target.emailId.value;
+    
     let my_obj = {
-    name  :  e.target.name.value,
-    email : e.target.email.value
-    };
+        name,email
+    }
     let myObj_serialized = JSON.stringify(my_obj);
 
-    localStorage.setItem('my_obj' , myObj_serialized);
+    localStorage.setItem(my_obj.email , myObj_serialized);
 
-   console.log(JSON.parse(localStorage.getItem('my_obj')));
 }
+function addItem(e) {
+    e.preventDefault();
+
+    //get input value
+    var newItem = document.getElementById('item').value;
+    var newDiscription = document.getElementById('description').value;
+
+    //create new Li elem
+    var li = document.createElement('li');
+    li.className = "list-group-item";
+
+    li.appendChild(document.createTextNode(newItem));
+    li.appendChild(document.createTextNode(" "+newDiscription));
+    document.getElementById("items").appendChild(li);
+    }
