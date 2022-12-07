@@ -1,5 +1,6 @@
 var form = document.getElementById("addForm");
 
+
 form.addEventListener('submit', saveLocal);
 
 function saveLocal(e){
@@ -16,6 +17,10 @@ function saveLocal(e){
     localStorage.setItem(my_obj.email , myObj_serialized);
 
 }
+var form = document.getElementById("addForm");
+var itemList = document.getElementById("items");
+
+form.addEventListener('submit', addItem);
 function addItem(e) {
     e.preventDefault();
 
@@ -30,4 +35,38 @@ function addItem(e) {
     li.appendChild(document.createTextNode(newItem));
     li.appendChild(document.createTextNode(" "+newDiscription));
     document.getElementById("items").appendChild(li);
-    }
+    
+
+    var butn = document.createElement('button');
+    //add class to delete btn
+    butn.className = "btn btn-danger btn-sm float-right delete";
+    //add text node
+    butn.appendChild(document.createTextNode('delete'));
+
+    li.appendChild(butn);
+
+    itemList.appendChild(li);
+
+    //edit button elem
+
+    var editbtn = document.createElement('button');
+
+    editbtn.className = "btn btn-danger btn-sm float-right delete";
+    editbtn.appendChild(document.createTextNode('Edit'));
+    li.appendChild(editbtn);
+    itemList.appendChild(li);
+}
+function deleteUser(emailId){
+    console.log(emailId)
+    localStorage.removeItem(emailId);
+    removeUserFromScreen(emailId);
+
+}
+
+function removeUserFromScreen(emailId){
+    const parentNode = document.getElementsByClassName("list-group");
+    const childNodeToBeDeleted = document.getElementById(emailId);
+
+    parentNode.removeChild(childNodeToBeDeleted)
+}
+
